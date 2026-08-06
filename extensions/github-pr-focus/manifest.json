@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "GitHub PR Focus",
-  "version": "0.2.0",
-  "description": "Hide test files and source-code comments while reading GitHub pull request diffs.",
+  "version": "0.7.1",
+  "description": "Focus GitHub pull request diffs with category filters and split line counts.",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
   "permissions": ["storage"],
   "content_scripts": [
     {

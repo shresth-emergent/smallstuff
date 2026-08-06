@@ -1,0 +1,9 @@
+dist/
+nanobanana-output/
+
+# Local capture sources and superseded store screenshots.
+store-assets/live-pr-focus.png
+store-assets/screenshot-1280x800.png
+store-assets/screenshot-public-1280x800.jpg
+store-assets/screenshot-public-1280x800.png
+store-assets/screenshot-public-go-1280x800.png

@@ -1,7 +1,12 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 
-const { isTestFile, normalizeFilePath } = require("../src/filters.js");
+const {
+  getFileCategory,
+  isTestArtifact,
+  isTestFile,
+  normalizeFilePath,
+} = require("../src/filters.js");
 
 test("recognizes common test files and directories", () => {
   const testFiles = [
@@ -48,4 +53,25 @@ test("removes GitHub's bidirectional path markers", () => {
     normalizeFilePath("\u200etemplates/backend/tests/conftest.py\u200e"),
     "templates/backend/tests/conftest.py",
   );
+});
+
+test("splits config, migrations, and test artifacts from source code", () => {
+  const categories = new Map([
+    ["src/app.go", "source"],
+    ["config/app.json", "config"],
+    ["deploy/values.yaml", "config"],
+    ["db/migrations/001_create_users.sql", "migrations"],
+    ["tests/parser_test.go", "tests"],
+    ["tests/config.yaml", "tests"],
+    ["tests/schema.sql", "tests"],
+    ["tests/fixtures/user.json", "artifacts"],
+    ["pkg/__snapshots__/output.snap", "artifacts"],
+    ["testdata/golden-response.json", "artifacts"],
+  ]);
+
+  for (const [filePath, category] of categories) {
+    assert.equal(getFileCategory(filePath), category, filePath);
+  }
+  assert.equal(isTestArtifact("tests/fixtures/user.json"), true);
+  assert.equal(isTestFile("tests/fixtures/user.json"), true);
 });

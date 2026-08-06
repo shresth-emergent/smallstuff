@@ -1,82 +1,92 @@
 .ghprf-hidden-test,
+.ghprf-hidden-non-test,
+.ghprf-hidden-category,
 .ghprf-hidden-tree-item,
+.ghprf-hidden-code-line,
 .ghprf-hidden-code-comment,
 .ghprf-hidden-comment {
   display: none !important;
 }
 
-.ghprf-controls {
-  display: grid;
-  gap: 2px;
-  margin-block: 8px 2px;
-  padding-block: 8px 2px;
-  border-top: 1px solid var(--borderColor-muted, var(--color-border-muted, #d0d7de));
-  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
-  font: inherit;
+.ghprf-native-line-summary {
+  display: none !important;
 }
 
-.ghprf-controls--action-list {
-  margin-block: 0;
-  padding-block: 0;
-  border-top: 0;
-}
-
-.ghprf-toggle {
-  appearance: none;
-  display: grid;
-  grid-template-columns: 16px minmax(0, 1fr) auto;
+.ghprf-line-breakdown {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 34px;
-  padding: 6px 8px;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
   line-height: 20px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.ghprf-toggle:hover {
-  background: var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg, rgba(177, 186, 196, 0.12)));
-}
-
-.ghprf-toggle:focus-visible {
-  outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg, #0969da));
-  outline-offset: -2px;
-}
-
-.ghprf-check {
-  fill: currentColor;
-  opacity: 0;
-  transform: scale(0.75);
-  transition: opacity 100ms ease, transform 100ms ease;
-}
-
-.ghprf-toggle[aria-checked="true"] .ghprf-check {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.ghprf-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.ghprf-count {
-  min-width: 1.5em;
+.ghprf-line-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 1px 6px;
+  border: 1px solid var(--borderColor-muted, var(--color-border-muted, #d0d7de));
+  border-radius: 999px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  transition: opacity 100ms ease, border-color 100ms ease;
+}
+
+.ghprf-line-stat--action {
+  appearance: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.ghprf-line-stat--action:hover {
+  border-color: var(--borderColor-default, var(--color-border-default, #8c959f));
+  background: var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg, rgba(177, 186, 196, 0.12)));
+}
+
+.ghprf-line-stat--action:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg, #0969da));
+  outline-offset: 2px;
+}
+
+.ghprf-line-stat--action[aria-pressed="true"] {
+  border-color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  box-shadow: inset 0 0 0 1px var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+.ghprf-line-stat-label {
   color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
+  font-weight: 600;
+}
+
+.ghprf-line-additions {
+  color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+  font-weight: 600;
+}
+
+.ghprf-line-deletions {
+  color: var(--fgColor-danger, var(--color-danger-fg, #cf222e));
+  font-weight: 600;
+}
+
+.ghprf-line-stat--excluded {
+  border-style: dashed;
+  background: transparent;
+  opacity: 0.55;
+}
+
+.ghprf-line-stat--excluded .ghprf-line-stat-label {
+  text-decoration: line-through;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ghprf-check {
+  .ghprf-line-stat {
     transition: none;
   }
 }

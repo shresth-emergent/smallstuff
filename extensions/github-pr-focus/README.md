@@ -1,15 +1,25 @@
 # GitHub PR Focus
 
-A small Chrome extension that adds two toggles to the diff settings menu on a
-GitHub pull request's **Files changed** page:
+A small Chrome extension that adds focusable change categories to a GitHub pull
+request's **Files changed** page. Selections are stored with Chrome sync and
+continue to work as GitHub loads more files or navigates without a full page
+refresh.
 
-- **Hide test files** hides common test paths and filenames from both the file
-  tree and the diff pane.
-- **Hide code comments** hides comment-only source lines using GitHub's syntax
-  highlighting, while retaining lines that contain code plus a trailing comment.
+The pull-request header replaces GitHub's combined line total with a breakdown
+for **Code**, **Comments**, **Tests**, **Config**, **Migrations**, and test
+**Artifacts**. JSON, JSONC, YAML, and YML files count as Config; SQL counts as
+Migrations. Snapshots, golden files, fixtures, recordings, cassettes, and
+`testdata` paths count as Artifacts. A category excluded by the active filters
+is muted and struck through. An **Other** category appears only if GitHub has not
+yet loaded enough file metadata to classify every changed line.
 
-Both preferences are stored with Chrome sync and continue to work as GitHub
-loads more files or navigates without a full page refresh.
+Click one or more categories to compose a focused view, such as **Code +
+Config**. Click selected categories again to remove them; clearing the final
+selection returns to the full diff. GitHub's gear menu is left unchanged.
+
+Whitespace-only changes are hidden by default. When a pull-request diff opens,
+the extension preserves the existing URL options and enables GitHub's native
+`w=1` diff mode if it is not already active.
 
 The extension supports both GitHub's current `/changes` interface and the
 legacy `/files` interface.
@@ -20,8 +30,7 @@ legacy `/files` interface.
 2. Enable **Developer mode**.
 3. Click **Load unpacked**.
 4. Select this `github-pr-focus` directory.
-5. Open a pull request, choose **Files changed**, and open the diff settings
-   gear menu.
+5. Open a pull request and choose **Files changed**.
 
 Reload an already-open GitHub tab once after installing the extension.
 
@@ -29,7 +38,9 @@ Reload an already-open GitHub tab once after installing the extension.
 
 The extension recognizes common conventions including `tests/`, `test/`,
 `__tests__/`, `spec/`, `e2e/`, Cypress, `*_test.go`, `test_*.py`,
-`*.test.tsx`, `*.spec.js`, snapshots, and popular test-runner config files.
+`*.test.tsx`, `*.spec.js`, and popular test-runner config files. Test fixtures,
+snapshots, golden files, recordings, and cassettes are classified separately as
+Artifacts.
 
 ## Development
 
